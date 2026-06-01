@@ -1,0 +1,38 @@
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="{{ "/" | relURL }}">{{ site.Params.brand }}</a>
+
+    <div class="nav-right">
+      <ul class="nav-links" id="nav-links">
+        {{ $p := . }}
+        {{ range site.Menus.main }}
+          {{ $u := .URL }}
+          {{ $active := false }}
+          {{ if eq $u "/" }}
+            {{ $active = $p.IsHome }}
+          {{ else }}
+            {{ $active = hasPrefix $p.RelPermalink $u }}
+          {{ end }}
+          <li><a href="{{ $u | relURL }}"{{ if $active }} class="active"{{ end }}>{{ .Name }}</a></li>
+        {{ end }}
+      </ul>
+
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light/dark theme" title="Toggle theme">
+        <span class="icon-moon">☾</span>
+        <span class="icon-sun">☀</span>
+      </button>
+
+      <button class="nav-burger" id="nav-burger" type="button" aria-label="Toggle menu">≡</button>
+    </div>
+  </div>
+</header>
+
+<script>
+  (function () {
+    var burger = document.getElementById("nav-burger");
+    var links = document.getElementById("nav-links");
+    if (burger && links) {
+      burger.addEventListener("click", function () { links.classList.toggle("open"); });
+    }
+  })();
+</script>

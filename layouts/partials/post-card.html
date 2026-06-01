@@ -1,0 +1,16 @@
+{{/* Post card. Context = a page. */}}
+{{ $categories := .Params.categories | default slice }}
+{{ $tags := .Params.tags | default slice }}
+{{ $search := lower (printf "%s %s %s %s" .Title (.Summary | plainify) (delimit $categories " ") (delimit $tags " ")) }}
+<article class="post-card"
+         data-categories="{{ delimit $categories "|" }}"
+         data-search="{{ $search }}">
+  <div class="meta">
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
+    {{ range first 2 $categories }}
+      <span class="badge">{{ . }}</span>
+    {{ end }}
+  </div>
+  <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+  <p class="excerpt">{{ .Summary | plainify | truncate 120 }}</p>
+</article>

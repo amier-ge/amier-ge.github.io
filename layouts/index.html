@@ -1,0 +1,25 @@
+{{ define "main" }}
+<section class="hero">
+  <p class="hero-prompt"><span class="accent">amier_ge@blog</span>:~$ whoami</p>
+  <h1>{{ site.Params.brand }}<span class="cursor">&nbsp;</span></h1>
+  <div class="hero-actions">
+    <a class="btn" href="{{ "/about/" | relURL }}">$ cat ./about</a>
+    <a class="btn" href="{{ "/blog/" | relURL }}">$ ls ./blog</a>
+  </div>
+</section>
+
+{{ $recent := where site.RegularPages "Section" "blog" }}
+{{ if $recent }}
+<section style="margin-top:3.5rem;">
+  {{ partial "section-title.html" "RECENT POSTS" }}
+  <div class="card-grid">
+    {{ range first 3 $recent }}
+      {{ partial "post-card.html" . }}
+    {{ end }}
+  </div>
+  <p style="margin-top:1.5rem;">
+    <a href="{{ "/blog/" | relURL }}" style="font-family:var(--font-mono);font-size:0.85rem;">// view all posts &rarr;</a>
+  </p>
+</section>
+{{ end }}
+{{ end }}

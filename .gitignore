@@ -1,0 +1,20 @@
+# Hugo build output
+/public/
+/resources/_gen/
+.hugo_build.lock
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# OMC
+.omc/
+
+# source images kept at repo root (already copied into assets/img/)
+/github_blog_png.png
+/github_blog_profile.jpg
+
+# local-only working notes for Claude (do not publish)
+/CLAUDE.md

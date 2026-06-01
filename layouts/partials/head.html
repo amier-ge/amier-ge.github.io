@@ -1,0 +1,42 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  {{ $title := .Title | default site.Title }}
+  {{ if .IsHome }}
+    <title>{{ site.Title }}</title>
+  {{ else }}
+    <title>{{ $title }} · {{ site.Title }}</title>
+  {{ end }}
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}" />
+  <meta name="author" content="{{ site.Params.fullName }}" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ $title }}" />
+  <meta property="og:description" content="{{ site.Params.description }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+
+  <!-- Apply theme before paint to avoid flash (FOUC). Default = OS setting. -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("amierge-theme");
+        var sys = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", stored || sys);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+
+  {{ $css := resources.Get "css/main.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" />
+
+  {{ with resources.Get "img/favicon.png" }}
+    {{ $fav := .Fit "64x64 png" }}
+    {{ $apple := .Fit "180x180 png" }}
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ $fav.RelPermalink }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ $apple.RelPermalink }}" />
+  {{ end }}
+</head>

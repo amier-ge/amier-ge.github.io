@@ -1,0 +1,18 @@
+{{ define "main" }}
+<div class="contact-wrap">
+  {{ partial "section-title.html" "CONTACT" }}
+
+  {{ with .Content }}<div class="prose" style="text-align:center;">{{ . }}</div>{{ end }}
+
+  <div class="contact-links">
+    <a href="mailto:{{ site.Params.email }}">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+      {{ site.Params.email }}
+    </a>
+    <a href="{{ site.Params.instagram }}" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+      {{ site.Params.instagramHandle }}
+    </a>
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,14 @@
+{{ define "main" }}
+  {{ partial "section-title.html" (.Title | upper) }}
+  {{ with .Content }}<div class="prose" style="margin-bottom:2rem;">{{ . }}</div>{{ end }}
+  {{ $posts := .Pages }}
+  {{ if $posts }}
+  <div class="card-grid">
+    {{ range $posts }}
+      {{ partial "post-card.html" . }}
+    {{ end }}
+  </div>
+  {{ else }}
+  <p class="no-results">// no posts yet</p>
+  {{ end }}
+{{ end }}

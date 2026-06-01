@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.Lang | default "en" }}" data-theme="dark">
+{{ partial "head.html" . }}
+<body>
+  {{ partial "header.html" . }}
+  <main>
+    <div class="container">
+      {{ block "main" . }}{{ end }}
+    </div>
+  </main>
+  {{ partial "footer.html" . }}
+
+  {{ $themeJS := resources.Get "js/theme-toggle.js" | minify | fingerprint }}
+  <script src="{{ $themeJS.RelPermalink }}"></script>
+  {{ $counterJS := resources.Get "js/visitor-counter.js" | minify | fingerprint }}
+  <script src="{{ $counterJS.RelPermalink }}" defer></script>
+  {{ block "scripts" . }}{{ end }}
+</body>
+</html>

@@ -1,0 +1,12 @@
+{{ define "main" }}
+<div class="about-grid">
+  {{ partial "profile-card.html" . }}
+
+  <div class="about-content">
+    {{ partial "section-title.html" "ABOUT ME" }}
+    <div class="prose">
+      {{ .Content }}
+    </div>
+  </div>
+</div>
+{{ end }}

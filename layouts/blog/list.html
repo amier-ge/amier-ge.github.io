@@ -1,0 +1,33 @@
+{{ define "main" }}
+  {{ partial "section-title.html" "BLOG" }}
+
+  {{ with .Content }}<div class="prose" style="margin-bottom:1.5rem;">{{ . }}</div>{{ end }}
+
+  <div class="blog-controls">
+    <div class="search-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="blog-search" placeholder="search posts..." autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="80" aria-label="Search posts" />
+    </div>
+    <div class="category-filters">
+      <button class="cat-btn active" data-category="ALL" type="button">ALL</button>
+      {{ range site.Params.categories }}
+        <button class="cat-btn" data-category="{{ . }}" type="button">{{ . }}</button>
+      {{ end }}
+    </div>
+  </div>
+
+  {{ $posts := .Pages }}
+  <div class="card-grid" id="post-list">
+    {{ range $posts }}
+      {{ partial "post-card.html" . }}
+    {{ end }}
+  </div>
+  <p class="no-results" id="no-results" style="display:none;">// no posts match your filter</p>
+
+  {{ if not $posts }}<p class="no-results">// no posts yet</p>{{ end }}
+{{ end }}
+
+{{ define "scripts" }}
+  {{ $search := resources.Get "js/blog-search.js" | minify | fingerprint }}
+  <script src="{{ $search.RelPermalink }}"></script>
+{{ end }}

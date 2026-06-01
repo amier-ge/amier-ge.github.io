@@ -1,0 +1,8 @@
+{{ define "main" }}
+  {{ partial "section-title.html" (.Title | upper) }}
+  <div class="category-filters" style="margin-bottom:2rem;">
+    {{ range .Pages }}
+      <a class="cat-btn" href="{{ .RelPermalink }}">{{ .Title }} <span style="opacity:.6;">({{ len .Pages }})</span></a>
+    {{ end }}
+  </div>
+{{ end }}

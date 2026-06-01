@@ -1,0 +1,59 @@
+baseURL = "https://amier-ge.github.io/"
+title = "amier_ge"
+enableEmoji = true
+enableRobotsTXT = true
+
+# 요약 길이(블로그 카드/검색 인덱스용)
+summaryLength = 30
+
+# 이미지 처리 화질 (파비콘/프로필 리사이즈 선명도 향상)
+[imaging]
+  resampleFilter = "Lanczos"
+  quality = 92
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[markup]
+  [markup.highlight]
+    style = "github-dark"
+    noClasses = true
+    lineNos = false
+  [markup.goldmark.renderer]
+    unsafe = true   # 마크다운 내 HTML 허용
+
+# 우상단 네비게이션 (순서: HOME · ABOUT ME · BLOG · CONTACT)
+[menu]
+  [[menu.main]]
+    name = "HOME"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "ABOUT ME"
+    url = "/about/"
+    weight = 2
+  [[menu.main]]
+    name = "BLOG"
+    url = "/blog/"
+    weight = 3
+  [[menu.main]]
+    name = "CONTACT"
+    url = "/contact/"
+    weight = 4
+
+[params]
+  brand = "amier_ge"
+  description = "amier_ge's blog"
+  defaultTheme = "auto"   # auto = OS 설정 따름 (light / dark / auto)
+
+  # 소셜 / 연락처 (ABOUT, CONTACT 공용)
+  fullName = "YoungJin Ban"
+  location = "Seoul, South Korea"
+  email = "amierge.df@gmail.com"
+  github = "https://github.com/amier-ge"
+  instagram = "https://instagram.com/amier_ge_"
+  instagramHandle = "@amier_ge_"
+
+  # 블로그 카테고리 (ALL 버튼은 템플릿에서 자동 추가)
+  categories = ["CTF", "Write-Up", "Tooling", "Career", "Education", "Others"]
