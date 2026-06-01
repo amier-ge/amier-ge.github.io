@@ -2,6 +2,8 @@ baseURL = "https://amier-ge.github.io/"
 title = "amier_ge"
 enableEmoji = true
 enableRobotsTXT = true
+# 날짜를 한국 시간 기준으로 해석 (미래글로 오인돼 글이 안 뜨는 문제 방지)
+timeZone = "Asia/Seoul"
 
 # 요약 길이(블로그 카드/검색 인덱스용)
 summaryLength = 30
@@ -22,6 +24,10 @@ summaryLength = 30
     lineNos = false
   [markup.goldmark.renderer]
     unsafe = true   # 마크다운 내 HTML 허용
+  [markup.goldmark.extensions.cjk]
+    enable = true            # 한글 등 CJK 옆 **굵게**/_기울임_ 인식
+    eastAsianLineBreaks = true
+    escapedSpace = true
 
 # 우상단 네비게이션 (순서: HOME · ABOUT ME · BLOG · CONTACT)
 [menu]

@@ -463,6 +463,9 @@ main { min-height: calc(100vh - 64px - 90px); padding: 3rem 0; }
 .prose { max-width: 760px; }
 .prose h2, .prose h3 { font-family: var(--font-display); margin-top: 2rem; }
 .prose p, .prose li { color: var(--text); }
+.prose ul, .prose ol { padding-left: 1.5rem; margin: 1rem 0; }
+.prose li { margin: 0.3rem 0; }
+.prose li > ul, .prose li > ol { margin: 0.3rem 0; }
 .prose code {
   font-family: var(--font-mono);
   font-size: 0.88em;
@@ -517,6 +520,65 @@ main { min-height: calc(100vh - 64px - 90px); padding: 3rem 0; }
   color: var(--text-dim);
 }
 .prose a { text-decoration: underline; text-underline-offset: 3px; }
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+  display: block;
+  overflow-x: auto;
+}
+.prose th,
+.prose td {
+  border: 1px solid var(--border);
+  padding: 0.55rem 0.9rem;
+  text-align: left;
+}
+.prose thead th {
+  font-family: var(--font-mono);
+  background: var(--surface-2);
+  color: var(--text);
+  border-bottom: 2px solid var(--border-accent);
+  white-space: nowrap;
+}
+.prose tbody tr:nth-child(even) { background: var(--surface); }
+
+/* 접었다 폈다 토글 (<details>) */
+.prose details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+  background: var(--surface);
+  overflow: hidden;
+}
+.prose summary {
+  cursor: pointer;
+  padding: 0.8rem 1.1rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--text);
+  background: var(--surface-2);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  user-select: none;
+}
+.prose summary::-webkit-details-marker { display: none; }
+.prose summary::before {
+  content: "▶";
+  color: var(--accent);
+  font-size: 0.7em;
+  transition: transform 0.15s ease;
+}
+.prose details[open] > summary::before { transform: rotate(90deg); }
+.prose summary:hover { color: var(--accent); }
+.prose details[open] > summary { border-bottom: 1px solid var(--border); }
+/* 토글 안쪽 가로 여백: padding 대신 margin → <ul>/<blockquote> 들여쓰기를 안 건드림 */
+.prose details > :not(summary) { margin-left: 1.1rem; margin-right: 1.1rem; }
+.prose details > .highlight, .prose details > pre { margin-left: 1.1rem; margin-right: 1.1rem; }
+.prose details > :last-child { padding-bottom: 0.4rem; }
 
 .back-link { font-family: var(--font-mono); font-size: 0.85rem; display: inline-block; margin-bottom: 1.5rem; }
 
