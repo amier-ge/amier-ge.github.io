@@ -12,4 +12,5 @@
     {{ .Content }}
   </div>
 </article>
+{{ if eq .Section "blog" }}{{ partial "comments.html" . }}{{ end }}
 {{ end }}

@@ -1,0 +1,84 @@
+{{/*
+  Comments (Giscus — backed by GitHub Discussions).
+
+  - Renders only on blog single posts.
+  - If params.giscus is fully configured (repo + repoId + categoryId), it loads
+    the Giscus widget. Otherwise it shows a "pending until deploy" placeholder so
+    the layout is visible while previewing locally.
+  - The widget theme follows the site's light/dark toggle live (data-theme on <html>).
+
+  NOTE: config values are emitted ONLY as HTML data-* attributes (single, safe
+  attribute escaping) and read back in JS via dataset — this avoids the double
+  quoting you get from `jsonify` inside a <script> context.
+*/}}
+{{ $g := site.Params.giscus }}
+{{ $ready := and $g $g.repo $g.repoId $g.categoryId }}
+
+<section class="comments" aria-label="Comments">
+  {{ partial "section-title.html" "COMMENTS" }}
+
+  {{ if $ready }}
+  <div id="giscus-container" class="giscus"
+       data-g-repo="{{ $g.repo }}"
+       data-g-repo-id="{{ $g.repoId }}"
+       data-g-category="{{ $g.category | default `Comments` }}"
+       data-g-category-id="{{ $g.categoryId }}"
+       data-g-mapping="{{ $g.mapping | default `pathname` }}"
+       data-g-reactions="{{ if $g.reactions }}1{{ else }}0{{ end }}"
+       data-g-input-position="{{ $g.inputPosition | default `top` }}"
+       data-g-lang="{{ $g.lang | default `ko` }}"
+       data-g-theme-dark="{{ $g.themeDark | default `transparent_dark` }}"
+       data-g-theme-light="{{ $g.themeLight | default `light` }}"></div>
+  <script>
+    (function () {
+      var c = document.getElementById("giscus-container");
+      var d = c.dataset;
+
+      function siteTheme() {
+        return document.documentElement.getAttribute("data-theme") === "light"
+          ? d.gThemeLight : d.gThemeDark;
+      }
+
+      // Inject the Giscus client with the current theme baked in.
+      var s = document.createElement("script");
+      s.src = "https://giscus.app/client.js";
+      s.async = true;
+      s.crossOrigin = "anonymous";
+      s.setAttribute("data-repo", d.gRepo);
+      s.setAttribute("data-repo-id", d.gRepoId);
+      s.setAttribute("data-category", d.gCategory);
+      s.setAttribute("data-category-id", d.gCategoryId);
+      s.setAttribute("data-mapping", d.gMapping);
+      s.setAttribute("data-strict", "0");
+      s.setAttribute("data-reactions-enabled", d.gReactions);
+      s.setAttribute("data-emit-metadata", "0");
+      s.setAttribute("data-input-position", d.gInputPosition);
+      s.setAttribute("data-theme", siteTheme());
+      s.setAttribute("data-lang", d.gLang);
+      c.appendChild(s);
+
+      // Keep the Giscus theme in sync when the user flips the site toggle.
+      new MutationObserver(function () {
+        var frame = document.querySelector("iframe.giscus-frame");
+        if (!frame) return;
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: siteTheme() } } },
+          "https://giscus.app"
+        );
+      }).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"]
+      });
+    })();
+  </script>
+  {{ else }}
+  <div class="comments-pending">
+    <p class="comments-pending__title">// 댓글 기능 준비됨 <span class="blink">_</span></p>
+    <p class="comments-pending__body">
+      배포(<code>amier-ge.github.io</code>) 후 <code>hugo.toml</code>의
+      <code>[params.giscus]</code>에 값 4개를 채우면 여기에 댓글창이 켜집니다.
+      방문자는 GitHub 계정으로 로그인해 댓글을 남길 수 있어요.
+    </p>
+  </div>
+  {{ end }}
+</section>

@@ -63,3 +63,21 @@ summaryLength = 30
 
   # 블로그 카테고리 (ALL 버튼은 템플릿에서 자동 추가)
   categories = ["CTF", "Write-Up", "Tooling", "Career", "Education", "Others"]
+
+# ── 댓글 (Giscus, GitHub Discussions 기반) ───────────────────────────────
+# 네 값 4개(repo / repoId / category / categoryId)가 다 채워지면 댓글창이 켜지고,
+# 비어 있으면 글 하단에 "배포 후 활성화" 안내 박스만 보임(로컬에서 미리보기 용).
+# 값 받는 곳: https://giscus.app 에서 저장소 입력 → 아래 4개를 그대로 복사.
+#   (전제: 저장소가 public + Settings>General>Discussions 켜짐 + giscus 앱 설치)
+[params.giscus]
+  repo            = "amier-ge/amier-ge.github.io"
+  repoId          = "R_kgDOSuApyw"
+  category        = "Announcements"   # 방문자는 댓글만, 새 토론은 못 만들게(권장)
+  categoryId      = "DIC_kwDOSuApy84C-WmS"
+  mapping         = "pathname"  # 글 1개 ↔ 토론 1개 매칭 기준
+  reactions       = true        # 👍 같은 리액션 버튼
+  inputPosition   = "top"       # 입력창 위치 (top | bottom)
+  lang            = "ko"        # 댓글 UI 언어
+  # 다크/라이트 토글에 맞춰 자동 전환됨. 아래는 각 모드에서 쓸 Giscus 테마.
+  themeDark       = "transparent_dark"
+  themeLight      = "light"

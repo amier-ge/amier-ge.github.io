@@ -603,3 +603,43 @@ main { min-height: calc(100vh - 64px - 90px); padding: 3rem 0; }
   .nav .theme-toggle { order: 2; }
   .contact-links a { min-width: 0; width: 100%; }
 }
+
+/* ---------- Comments (Giscus) ---------- */
+.comments {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.comments .section-title { margin-bottom: 1.25rem; }
+.comments .giscus { min-height: 8rem; }
+
+/* Placeholder shown before deploy / before Giscus is configured */
+.comments-pending {
+  background: var(--surface);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+}
+.comments-pending__title {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+}
+.comments-pending__body {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.comments-pending code {
+  font-family: var(--font-mono);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.05em 0.35em;
+  font-size: 0.85em;
+  color: var(--text);
+}
+.comments-pending .blink { animation: comments-blink 1.1s steps(1) infinite; }
+@keyframes comments-blink { 50% { opacity: 0; } }
