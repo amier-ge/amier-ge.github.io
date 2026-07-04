@@ -431,6 +431,36 @@ main { min-height: calc(100vh - 64px - 90px); padding: 3rem 0; }
 .about-content ul { padding-left: 1.2rem; }
 .about-content li { margin-bottom: 0.4rem; }
 
+/* Award timeline — 연도(좌측 mono 라벨) + 세로선 + 수상 목록 */
+.award-timeline { margin: 0.4rem 0 0; }
+.award-timeline .yr {
+  display: grid;
+  grid-template-columns: 2.8rem 1fr;
+  column-gap: 1.1rem;
+}
+.award-timeline .yr > .year {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  text-align: right;
+}
+.award-timeline .yr > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 2rem 1.25rem;   /* 아래쪽 여백 = 연도 그룹 사이 간격(세로선은 계속 이어짐) */
+  border-left: 2px solid var(--border-accent);
+}
+.award-timeline .yr:last-child > ul { padding-bottom: 0; }
+.award-timeline .yr > ul > li {
+  margin: 0 0 0.5rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+.award-timeline .yr > ul > li:last-child { margin-bottom: 0; }
+.award-timeline strong { color: var(--text); }
+
 /* ---------- CONTACT (centered) ---------- */
 .contact-wrap { max-width: 560px; margin: 1.5rem auto 0; text-align: center; }
 .contact-links {
