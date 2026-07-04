@@ -21,9 +21,23 @@ photo: "/img/profile.svg"
 - **2026 k-dfs 하계학술대회** - 논문 발표
 
 ## Award
-🥈 **교내 AI·보안 해커톤** - 최우수상<br>
-🎖️ **2025 한국디지털포렌식학회 동계학술대회** - 우수논문상<br>
-🎖️ **2026 Sekai CTF** - 1<sup>st</sup> Place
+
+<div class="award-timeline">
+  <div class="yr">
+    <span class="year">2025</span>
+    <ul>
+      <li>🥈 <strong>교내 AI·보안 해커톤</strong> — 최우수상</li>
+      <li>🎖️ <strong>한국디지털포렌식학회 동계학술대회</strong> — 우수논문상</li>
+    </ul>
+  </div>
+  <div class="yr">
+    <span class="year">2026</span>
+    <ul>
+      <li>🎖️ <strong>Sekai CTF</strong> — 1<sup>st</sup> Place</li>
+      <li>🎖️ <strong>HSPACE Digital Forensics Challenge</strong> — 1<sup>st</sup> Place</li>
+    </ul>
+  </div>
+</div>
 
 ## Project
 - **교내 공식 동아리 관리 웹** - Frontend(Vue.js) 팀장
