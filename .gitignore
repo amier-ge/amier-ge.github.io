@@ -18,3 +18,6 @@ Thumbs.db
 
 # local-only working notes for Claude (do not publish)
 /CLAUDE.md
+
+# tmp Directory
+/tmp
