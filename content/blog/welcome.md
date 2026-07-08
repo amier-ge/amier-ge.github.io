@@ -13,7 +13,8 @@ summary: "개인 블로그를 다시 만들어서 올리려고 합니다!"
 
 - **CTF** / **Write-Up** — 대회에서 푼 문제 풀이
 - **Tooling** — 직접 만든 보안 도구와 스크립트
-- **Career** / **Education** — 진로와 공부 기록
+- **Review** — 논문 리뷰
+- **Education** — 공부 기록
 - **Others** — 그 외 잡담
 
 <br>
