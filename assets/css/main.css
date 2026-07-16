@@ -492,7 +492,7 @@ main { min-height: calc(100vh - 64px - 90px); padding: 3rem 0; }
 .post-header { margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
 .post-header h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0.6rem 0; }
 .post-header .meta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
-.prose { max-width: 920px; }
+.prose { max-width: 920px; overflow-wrap: break-word; }
 .prose h2, .prose h3 { font-family: var(--font-display); margin-top: 2rem; }
 .prose p, .prose li { color: var(--text); }
 .prose ul, .prose ol { padding-left: 1.5rem; margin: 1rem 0; }
@@ -678,6 +678,13 @@ a.lang-opt:hover { background: var(--surface-2); color: var(--text); opacity: 1;
   .nav-burger { display: inline-block; order: 3; }
   .nav .theme-toggle { order: 2; }
   .contact-links a { min-width: 0; width: 100%; }
+
+  /* 모바일: 코드블록을 좌우 스크롤 대신 줄바꿈 → 페이지가 좌우로 안 밀림 (데스크탑은 그대로 스크롤) */
+  .prose pre,
+  .prose pre code {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
 }
 
 /* ---------- Comments (Giscus) ---------- */
