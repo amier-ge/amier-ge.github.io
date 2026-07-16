@@ -101,9 +101,9 @@ summary: "점차 발전하는 AI 시대에 자동화 공격은 어떤 식으로 
 - 우선 OpenClaw를 Attacker(Kali Linux)에 세팅을 완료한다.
 - 위 **Setting** 부분에 적은 것처럼, GPT 5를 사용한다.
 
-### 2. Victim에 c2_server.py 실행
+### 2. Attacker에 c2_server.py 실행
 
-- Attacker에 띄워질 Agent와 통신하기 위해, c2_server.py를 Victim에서 띄운다.
+- Victim에 띄워질 Agent와 통신하기 위해, c2_server.py를 Attacker에서 띄운다.
 - 코드 실행 시 아래와 같은 모습을 확인할 수 있다. 
   ![](/img/posts/victim_c2.png)
 
