@@ -1,6 +1,9 @@
 {{ define "main" }}
 <article>
-  <a class="back-link" href="{{ "/blog/" | relURL }}">&larr; back to blog</a>
+  <div class="page-head">
+    <a class="back-link" href="{{ "/blog/" | relLangURL }}">&larr; back to blog</a>
+    {{ if eq .Section "blog" }}{{ partial "lang-switch.html" . }}{{ end }}
+  </div>
   <header class="post-header">
     <div class="meta">
       <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>

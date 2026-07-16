@@ -1,7 +1,7 @@
 {{ define "main" }}
 <section class="hero">
   <p class="hero-prompt"><span class="accent">amier_ge@blog</span>:~$ whoami</p>
-  <h1>{{ site.Params.brand }}<span class="cursor">&nbsp;</span></h1>
+  <h1><span class="typed">{{ site.Params.brand }}</span><span class="cursor">&nbsp;</span></h1>
   <div class="hero-actions">
     <a class="btn" href="{{ "/about/" | relURL }}">$ cat ./about</a>
     <a class="btn" href="{{ "/blog/" | relURL }}">$ ls ./blog</a>
@@ -22,4 +22,10 @@
   </p>
 </section>
 {{ end }}
+{{ end }}
+
+{{/* Hero typewriter — homepage only */}}
+{{ define "scripts" }}
+  {{ $typeJS := resources.Get "js/typewriter.js" | minify | fingerprint }}
+  <script src="{{ $typeJS.RelPermalink }}"></script>
 {{ end }}

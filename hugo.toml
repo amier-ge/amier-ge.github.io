@@ -2,6 +2,14 @@ baseURL = "https://amier-ge.github.io/"
 title = "amier_ge"
 enableEmoji = true
 enableRobotsTXT = true
+
+# ── 다국어 (한국어 기본 / 영어 번역본) ───────────────────────────────────
+# 한국어 = 기존 URL 그대로(/blog/...), 영어 = /en/ 하위(/en/blog/...).
+#   → 기존 링크·SEO·giscus 댓글(pathname 매칭)이 안 깨짐.
+# 번역 추가법: 원본 옆에 .en.md 를 두면 Hugo가 자동으로 짝지음.
+#   예) content/blog/OpenClaw.md (한국어)  →  content/blog/OpenClaw.en.md (영어)
+defaultContentLanguage = "ko"
+defaultContentLanguageInSubdir = false
 # 날짜를 한국 시간 기준으로 해석 (미래글로 오인돼 글이 안 뜨는 문제 방지)
 timeZone = "Asia/Seoul"
 
@@ -29,29 +37,59 @@ summaryLength = 30
     eastAsianLineBreaks = true
     escapedSpace = true
 
-# 우상단 네비게이션 (순서: HOME · ABOUT ME · BLOG · CONTACT)
-[menu]
-  [[menu.main]]
-    name = "HOME"
-    url = "/"
+# 언어 정의 + 우상단 네비게이션(HOME · ABOUT ME · BLOG · CONTACT)은 언어별로 둠.
+# languageName(KO/EN)은 언어 전환 버튼에 그대로 표시됨.
+[languages]
+  [languages.ko]
+    languageCode = "ko-KR"
+    languageName = "KO"
     weight = 1
-  [[menu.main]]
-    name = "ABOUT ME"
-    url = "/about/"
+    [languages.ko.menu]
+      [[languages.ko.menu.main]]
+        name = "HOME"
+        url = "/"
+        weight = 1
+      [[languages.ko.menu.main]]
+        name = "ABOUT ME"
+        url = "/about/"
+        weight = 2
+      [[languages.ko.menu.main]]
+        name = "BLOG"
+        url = "/blog/"
+        weight = 3
+      [[languages.ko.menu.main]]
+        name = "CONTACT"
+        url = "/contact/"
+        weight = 4
+
+  [languages.en]
+    languageCode = "en-US"
+    languageName = "EN"
     weight = 2
-  [[menu.main]]
-    name = "BLOG"
-    url = "/blog/"
-    weight = 3
-  [[menu.main]]
-    name = "CONTACT"
-    url = "/contact/"
-    weight = 4
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        name = "HOME"
+        url = "/en/"
+        weight = 1
+      [[languages.en.menu.main]]
+        name = "ABOUT ME"
+        url = "/en/about/"
+        weight = 2
+      [[languages.en.menu.main]]
+        name = "BLOG"
+        url = "/en/blog/"
+        weight = 3
+      [[languages.en.menu.main]]
+        name = "CONTACT"
+        url = "/en/contact/"
+        weight = 4
 
 [params]
   brand = "amier_ge"
   description = "amier_ge's blog"
-  defaultTheme = "auto"   # auto = OS 설정 따름 (light / dark / auto)
+  # 참고용 표기 — 실제 로직은 layouts/partials/head.html의 인라인 스크립트에 있음.
+  # 첫 진입은 OS 설정과 무관하게 항상 dark, 방문자가 토글하면 그 선택을 localStorage에 기억.
+  defaultTheme = "dark"
 
   # 소셜 / 연락처 (ABOUT, CONTACT 공용)
   fullName = "YoungJin Ban"

@@ -7,12 +7,29 @@
     the layout is visible while previewing locally.
   - The widget theme follows the site's light/dark toggle live (data-theme on <html>).
 
+  Shared thread across languages:
+    Korean (default) pages keep `pathname` mapping unchanged, so their EXISTING
+    Discussions/comments stay put. A translated page (e.g. /en/...) instead uses
+    `specific` mapping with the Korean version's path as the term, so both languages
+    read & write the SAME Discussion — the existing comments show on both.
+
   NOTE: config values are emitted ONLY as HTML data-* attributes (single, safe
   attribute escaping) and read back in JS via dataset — this avoids the double
   quoting you get from `jsonify` inside a <script> context.
 */}}
 {{ $g := site.Params.giscus }}
 {{ $ready := and $g $g.repo $g.repoId $g.categoryId }}
+
+{{/* Thread key. Default lang (ko) → pathname (untouched). Others → the ko version's path. */}}
+{{ $mapping := $g.mapping | default "pathname" }}
+{{ $term := "" }}
+{{ if ne .Language.Lang "ko" }}
+  {{ $mapping = "specific" }}
+  {{ $term = .RelPermalink }}
+  {{ range .Translations }}
+    {{ if eq .Language.Lang "ko" }}{{ $term = .RelPermalink }}{{ end }}
+  {{ end }}
+{{ end }}
 
 <section class="comments" aria-label="Comments">
   {{ partial "section-title.html" "COMMENTS" }}
@@ -23,10 +40,11 @@
        data-g-repo-id="{{ $g.repoId }}"
        data-g-category="{{ $g.category | default `Comments` }}"
        data-g-category-id="{{ $g.categoryId }}"
-       data-g-mapping="{{ $g.mapping | default `pathname` }}"
+       data-g-mapping="{{ $mapping }}"
+       data-g-term="{{ $term }}"
        data-g-reactions="{{ if $g.reactions }}1{{ else }}0{{ end }}"
        data-g-input-position="{{ $g.inputPosition | default `top` }}"
-       data-g-lang="{{ $g.lang | default `ko` }}"
+       data-g-lang="{{ site.Language.Lang }}"
        data-g-theme-dark="{{ $g.themeDark | default `transparent_dark` }}"
        data-g-theme-light="{{ $g.themeLight | default `light` }}"></div>
   <script>
@@ -49,6 +67,7 @@
       s.setAttribute("data-category", d.gCategory);
       s.setAttribute("data-category-id", d.gCategoryId);
       s.setAttribute("data-mapping", d.gMapping);
+      if (d.gTerm) s.setAttribute("data-term", d.gTerm);
       s.setAttribute("data-strict", "0");
       s.setAttribute("data-reactions-enabled", d.gReactions);
       s.setAttribute("data-emit-metadata", "0");

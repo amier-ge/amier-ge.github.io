@@ -13,6 +13,14 @@
   <meta name="description" content="{{ $desc }}" />
   <meta name="author" content="{{ site.Params.fullName }}" />
 
+  {{/* This site ships its own hand-written KO/EN versions, so on an English page a
+       machine-translation prompt is just noise — the visitor got here by choosing EN.
+       Korean pages deliberately keep it: a foreign visitor may have no EN version to
+       switch to yet, so Chrome's offer is still useful there. */}}
+  {{ if eq site.Language.Lang "en" }}
+  <meta name="google" content="notranslate" />
+  {{ end }}
+
   <!-- Search engine ownership verification -->
   <meta name="google-site-verification" content="BvnbvKBgxzc8UQo46w7wmi5BzTjKRb3kmVdHdbSoaZs" />
 
@@ -32,13 +40,15 @@
   <meta name="twitter:title" content="{{ $title }}" />
   <meta name="twitter:description" content="{{ $desc }}" />
 
-  <!-- Apply theme before paint to avoid flash (FOUC). Default = OS setting. -->
+  <!-- Apply theme before paint to avoid flash (FOUC).
+       Always starts dark regardless of the OS setting; only the visitor's own
+       toggle (stored in localStorage) overrides it. -->
   <script>
     (function () {
+      document.documentElement.classList.add("js");
       try {
         var stored = localStorage.getItem("amierge-theme");
-        var sys = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-        document.documentElement.setAttribute("data-theme", stored || sys);
+        document.documentElement.setAttribute("data-theme", stored || "dark");
       } catch (e) {
         document.documentElement.setAttribute("data-theme", "dark");
       }

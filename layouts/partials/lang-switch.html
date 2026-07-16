@@ -1,0 +1,28 @@
+{{/*
+  Language switcher (KO / EN). Pass the page as context.
+
+  Links to this page's translation when one exists; otherwise the option renders
+  disabled — the expected state until a translation file is added next to the source
+  (e.g. content/blog/OpenClaw.md → content/blog/OpenClaw.en.md).
+*/}}
+{{ $page := . }}
+{{ if gt (len site.Languages) 1 }}
+<div class="lang-switch" role="group" aria-label="Language">
+  {{ range site.Languages }}
+    {{ $lang := . }}
+    {{ if eq $lang.Lang $page.Language.Lang }}
+      <span class="lang-opt is-active" aria-current="true">{{ $lang.LanguageName }}</span>
+    {{ else }}
+      {{ $href := "" }}
+      {{ range $page.Translations }}
+        {{ if eq .Language.Lang $lang.Lang }}{{ $href = .RelPermalink }}{{ end }}
+      {{ end }}
+      {{ if $href }}
+        <a class="lang-opt" href="{{ $href }}" hreflang="{{ $lang.Lang }}">{{ $lang.LanguageName }}</a>
+      {{ else }}
+        <span class="lang-opt is-off" aria-disabled="true" title="아직 번역본이 없습니다 / No translation yet">{{ $lang.LanguageName }}</span>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+</div>
+{{ end }}

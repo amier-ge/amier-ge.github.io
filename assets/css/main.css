@@ -265,9 +265,12 @@ main { min-height: calc(100vh - 64px - 90px); padding: 3rem 0; }
   width: 0.55ch;
   background: var(--accent);
   margin-left: 0.1ch;
-  animation: blink 1.1s steps(1) infinite;
+  animation: blink 1.5s steps(1) infinite;
 }
 @keyframes blink { 50% { opacity: 0; } }
+/* Typewriter — JS types the wordmark out. Hidden only while JS is on (no-JS → plain text). */
+.js .hero h1 .typed { visibility: hidden; }
+.hero h1.typing .cursor { animation: none; opacity: 1; }  /* 타이핑 중엔 커서 고정 */
 .hero .tagline {
   font-family: var(--font-mono);
   color: var(--text-dim);
@@ -615,6 +618,45 @@ main { min-height: calc(100vh - 64px - 90px); padding: 3rem 0; }
 .prose details > :last-child { padding-bottom: 0.4rem; }
 
 .back-link { font-family: var(--font-mono); font-size: 0.85rem; display: inline-block; margin-bottom: 1.5rem; }
+
+/* ---------- Language switcher (KO / EN) ---------- */
+/* Title/back-link on the left, language pills on the right */
+.page-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;   /* 제목/언어버튼 아래 여백 (자식들의 margin은 아래에서 0으로 죽임) */
+}
+.page-head .section-title { margin-bottom: 0; }
+.page-head .back-link { margin-bottom: 0; }
+
+.lang-switch {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  flex: none;
+}
+.lang-opt {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  padding: 0.4rem 0.85rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.lang-opt + .lang-opt { border-left: 1px solid var(--border); }
+.lang-opt.is-active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+}
+a.lang-opt:hover { background: var(--surface-2); color: var(--text); opacity: 1; }
+/* No translation for this page yet */
+.lang-opt.is-off { opacity: 0.35; cursor: not-allowed; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 760px) {

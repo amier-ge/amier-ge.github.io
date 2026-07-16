@@ -1,5 +1,8 @@
 {{ define "main" }}
-  {{ partial "section-title.html" "BLOG" }}
+  <div class="page-head">
+    {{ partial "section-title.html" "BLOG" }}
+    {{ partial "lang-switch.html" . }}
+  </div>
 
   {{ with .Content }}<div class="prose" style="margin-bottom:1.5rem;">{{ . }}</div>{{ end }}
 
