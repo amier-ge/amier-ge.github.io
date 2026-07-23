@@ -33,8 +33,9 @@ photo: "/img/profile.svg"
   <div class="yr">
     <span class="year">2026</span>
     <ul>
-      <li>🎖️ <strong>Sekai CTF</strong> — 1<sup>st</sup> Place</li>
-      <li>🎖️ <strong>HSPACE Digital Forensics Challenge</strong> — 1<sup>st</sup> Place</li>
+      <li>🚩 <strong>DEFCON CTF Quals</strong> — 14<sup>th</sup> Place</li>
+      <li>🥇 <strong>Sekai CTF</strong> — 1<sup>st</sup> Place</li>
+      <li>🥇 <strong>HSPACE Digital Forensics Challenge</strong> — 1<sup>st</sup> Place</li>
     </ul>
   </div>
 </div>
