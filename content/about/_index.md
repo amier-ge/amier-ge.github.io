@@ -36,6 +36,7 @@ photo: "/img/profile.svg"
       <li>🚩 <strong>DEFCON CTF Quals</strong> — 14<sup>th</sup> Place</li>
       <li>🥇 <strong>Sekai CTF</strong> — 1<sup>st</sup> Place</li>
       <li>🥇 <strong>HSPACE Digital Forensics Challenge</strong> — 1<sup>st</sup> Place</li>
+      <li>🥇 <strong>D^3 CTF</strong> — 1<sup>st</sup> Place</li>
     </ul>
   </div>
 </div>
