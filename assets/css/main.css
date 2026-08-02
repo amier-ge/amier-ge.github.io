@@ -58,6 +58,12 @@
 
 html { scroll-behavior: smooth; }
 
+/* ---------- Text selection ---------- */
+::selection {
+  color: #ffffff;
+  background: color-mix(in srgb, var(--accent) 58%, #000000);
+}
+
 /* ---------- Custom scrollbar (site red tone, slightly thin) ---------- */
 html {
   scrollbar-width: thin;                        /* Firefox */
