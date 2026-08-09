@@ -14,11 +14,25 @@ photo: "/img/profile.svg"
 
 
 ## Activity
-- **TeamH4C** - White Hat Hacking Team
-- **P4C 12th** - Digital Forensics
-- **Best of the Best 14th** - Digital Forensics
-- **Write-Up** - Security Club President
-- **2026 k-dfs Summer Conference** - Paper Presentation
+
+<div class="award-timeline">
+  <div class="yr">
+    <span class="year">2025</span>
+    <ul>
+      <li><strong>P4C 12th</strong> - Digital Forensics</li>
+      <li><strong>Best of the Best 14th</strong> - Digital Forensics</li>
+    </ul>
+  </div>
+  <div class="yr">
+    <span class="year">2026</span>
+    <ul>
+      <li><strong>Write-Up</strong> - Security Club President</li>
+      <li><strong>TeamH4C</strong> - White Hat Hacking Team</li>
+      <li><strong>2026 k-dfs Summer Conference</strong> - Paper Presentation</li>
+      <li><strong>Challenge Author for the 2nd Gyeonggi Provincial Office of Education CTF</strong></li>
+    </ul>
+  </div>
+</div>
 
 ## Award
 
@@ -37,6 +51,7 @@ photo: "/img/profile.svg"
       <li>🥇 <strong>Sekai CTF</strong> — 1<sup>st</sup> Place</li>
       <li>🥇 <strong>HSPACE Digital Forensics Challenge</strong> — 1<sup>st</sup> Place</li>
       <li>🥇 <strong>D^3 CTF</strong> — 1<sup>st</sup> Place</li>
+      <li>🥇 <strong>HACKSIUM BUSAN Quals</strong> — 1<sup>st</sup> Place</li>
     </ul>
   </div>
 </div>
