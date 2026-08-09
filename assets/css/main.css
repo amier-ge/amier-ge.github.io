@@ -434,13 +434,15 @@ main { min-height: calc(100vh - 64px - 90px); padding: 3rem 0; overflow-x: clip;
 .about-content :is(h2, h3) {
   font-family: var(--font-mono);
   color: var(--text);
-  margin-top: 2.25rem;
+  margin-top: 5.5rem;
+  margin-bottom: 1.25rem;
 }
+.about-content > .section-title { margin-top: 0; }
 .about-content .prose h2::before { content: "// "; color: var(--accent); }
 .about-content ul { padding-left: 1.2rem; }
 .about-content li { margin-bottom: 0.4rem; }
 
-/* Award timeline — 연도(좌측 mono 라벨) + 세로선 + 수상 목록 */
+/* Year timeline — 연도(좌측 mono 라벨) + 세로선 + 목록 */
 .award-timeline { margin: 0.4rem 0 0; }
 .award-timeline .yr {
   display: grid;
