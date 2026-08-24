@@ -53,6 +53,7 @@ photo: "/img/profile.svg"
       <li>🥇 <strong>D^3 CTF</strong> — 1<sup>st</sup> Place</li>
       <li>🥇 <strong>HACKSIUM BUSAN Quals</strong> — 1<sup>st</sup> Place</li>
       <li>🚩 <strong>UIU CTF</strong> — 7<sup>th</sup> Place</li>
+      <li>🚩 <strong>KISIA CTF</strong> — 4<sup>th</sup> Place</li>
     </ul>
   </div>
 </div>
