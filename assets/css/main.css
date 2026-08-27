@@ -431,7 +431,7 @@ main { min-height: calc(100vh - 64px - 90px); padding: 3rem 0; overflow-x: clip;
 .profile-links a:hover { color: var(--accent); opacity: 1; }
 .profile-links svg { flex: none; color: var(--accent); }
 
-.about-content :is(h2, h3) {
+.about-content :is(h2, h3, h4) {
   font-family: var(--font-mono);
   color: var(--text);
   margin-top: 5.5rem;
@@ -501,7 +501,61 @@ main { min-height: calc(100vh - 64px - 90px); padding: 3rem 0; overflow-x: clip;
 .post-header h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0.6rem 0; }
 .post-header .meta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
 .prose { max-width: 920px; overflow-wrap: break-word; }
-.prose h2, .prose h3 { font-family: var(--font-display); margin-top: 2rem; }
+.prose h2, .prose h3, .prose h4 { font-family: var(--font-display); margin-top: 2rem; }
+.prose h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* Display formula — lightweight fraction styling for prose */
+.prose .formula-block {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 1.5rem 0;
+  padding: 1rem 0.85rem;
+  border: 1px solid var(--border-accent);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--text);
+}
+.prose .formula-name {
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.prose .formula-equals { color: var(--text-dim); }
+.prose .formula-fraction {
+  display: inline-grid;
+  grid-template-rows: auto auto;
+  min-width: 0;
+  max-width: 23rem;
+  flex: 1;
+  text-align: center;
+  line-height: 1.45;
+}
+.prose .formula-numerator {
+  padding: 0 0.45rem 0.3rem;
+  border-bottom: 1px solid var(--accent);
+}
+.prose .formula-denominator { padding-top: 0.3rem; }
+
+@media (max-width: 480px) {
+  .prose .formula-block {
+    gap: 0.35rem;
+    padding: 0.85rem 0.55rem;
+    font-size: 0.75rem;
+  }
+  .prose .formula-name { letter-spacing: 0; }
+  .prose .formula-numerator { padding-inline: 0.2rem; }
+}
 .prose p, .prose li { color: var(--text); }
 .prose ul, .prose ol { padding-left: 1.5rem; margin: 1rem 0; }
 .prose li { margin: 0.3rem 0; }
