@@ -54,7 +54,7 @@ photo: "/img/profile.svg"
       <li>🥇 <strong>HACKSIUM BUSAN Quals</strong> — 1<sup>st</sup> Place</li>
       <li>🚩 <strong>UIU CTF</strong> — 7<sup>th</sup> Place</li>
       <li>🚩 <strong>KISIA CTF</strong> — 4<sup>th</sup> Place</li>
-      <li>🥇 <strong>ASIS CTF</strong> — 1<sup>th</sup> Place</li>
+      <li>🥇 <strong>ASIS CTF Quals</strong> — 1<sup>th</sup> Place</li>
       <li>🥉 <strong>COMPFEST CTF</strong> — 3<sup>rd</sup> Place</li>
       <li>🥉 <strong>2026 HACKSIUM BUSAN Finals</strong> — 3<sup>rd</sup> Place</li>
       <li>🥉 <strong>HSPACE SpaceWar(WEB)</strong> — 3<sup>rd</sup> Place</li>
