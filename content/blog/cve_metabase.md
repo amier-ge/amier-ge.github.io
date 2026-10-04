@@ -1,6 +1,6 @@
 ---
 title: "CVE-2026-72898: Metabase 비밀번호 재설정 API의 SQL Injection"
-date: 2026-10-05
+date: 2026-10-07
 categories: ["1-day", "Education"]
 tags: ["CVE-2026-72898", "Metabase", "SQL Injection", "Web"]
 summary: "Metabase의 비밀번호 재설정 요청이 관리자 세션 생성으로 이어진 원인을 분석하고, 취약판과 패치판을 로컬 실습으로 비교합니다."
