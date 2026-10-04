@@ -12,6 +12,7 @@ Hello, I'm `amier_ge`.
 Here's what I plan to post in this space.
 
 - **CTF** / **Write-Up** — walkthroughs of challenges I solved at competitions
+- **1-day** — 1-day vulnerability research
 - **Tooling** — security tools and scripts I've built myself
 - **Review** — paper reviews
 - **Education** — records of what I'm studying
