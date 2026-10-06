@@ -55,7 +55,9 @@ photo: "/img/profile.svg"
       <li>🚩 <strong>UIU CTF</strong> — 7<sup>th</sup> Place</li>
       <li>🚩 <strong>KISIA CTF</strong> — 4<sup>th</sup> Place</li>
       <li>🥇 <strong>ASIS CTF Quals</strong> — 1<sup>th</sup> Place</li>
-      <li>🥉 <strong>COMPFEST CTF</strong> — 3<sup>rd</sup> Place</li>      <li>🥉 <strong>HSPACE SpaceWar(WEB)</strong> — 3<sup>rd</sup> Place</li>
+      <li>🥉 <strong>COMPFEST CTF</strong> — 3<sup>rd</sup> Place</li>      
+      <li>🥉 <strong>HSPACE SpaceWar(WEB)</strong> — 3<sup>rd</sup> Place</li>
+      <li>🥉 <strong>AI Forensic Investigation Challenge 2026</strong> — 3<sup>rd</sup> Place</li>
     </ul>
   </div>
 </div>
