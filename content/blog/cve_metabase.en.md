@@ -1,6 +1,6 @@
 ---
 title: "CVE-2026-72898: SQL Injection in Metabase's Password Reset API"
-date: 2026-10-07
+date: 2026-10-06
 categories: ["1-day", "Education"]
 tags: ["CVE-2026-72898", "Metabase", "SQL Injection", "Web"]
 summary: "Tracing how a Metabase password reset request could create an admin session, then comparing vulnerable and patched versions in a local lab."
