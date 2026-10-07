@@ -26,8 +26,8 @@ photo: "/img/profile.svg"
   <div class="yr">
     <span class="year">2026</span>
     <ul>
-      <li><strong>Write-Up</strong> - Security Club President</li>
       <li><strong>TeamH4C</strong> - White Hat Hacking Team</li>
+      <li><strong>Write-Up</strong> - Security Club President</li>
       <li><strong>2026 k-dfs Summer Conference</strong> - Paper Presentation</li>
       <li><strong>Challenge Author for the 2nd Gyeonggi Provincial Office of Education CTF</strong></li>
     </ul>

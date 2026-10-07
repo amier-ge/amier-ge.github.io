@@ -26,8 +26,8 @@ photo: "/img/profile.svg"
   <div class="yr">
     <span class="year">2026</span>
     <ul>
-      <li><strong>Write-Up</strong> - 보안 동아리 회장</li>
       <li><strong>TeamH4C</strong> - White Hat Hacking Team</li>
+      <li><strong>Write-Up</strong> - 보안 동아리 회장</li>
       <li><strong>2026 k-dfs 하계학술대회</strong> - 논문 발표</li>
       <li><strong>제 2회 경기도 교육청 CTF 문제 출제진</strong></li>
     </ul>
