@@ -101,7 +101,7 @@ summaryLength = 30
   instagramHandle = "@amier_ge_"
 
   # 블로그 카테고리 (ALL 버튼은 템플릿에서 자동 추가)
-  categories = ["CTF", "Write-Up", "Tooling", "Career", "Education", "Others"]
+  categories = ["CTF", "Write-Up", "1-day", "Review", "Tooling", "Career", "Education", "Others"]
 
 # ── 댓글 (Giscus, GitHub Discussions 기반) ───────────────────────────────
 # 네 값 4개(repo / repoId / category / categoryId)가 다 채워지면 댓글창이 켜지고,
