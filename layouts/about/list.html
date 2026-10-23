@@ -3,7 +3,10 @@
   {{ partial "profile-card.html" . }}
 
   <div class="about-content">
-    {{ partial "section-title.html" "ABOUT ME" }}
+    <div class="page-head">
+      {{ partial "section-title.html" "ABOUT ME" }}
+      {{ partial "lang-switch.html" . }}
+    </div>
     <div class="prose">
       {{ .Content }}
     </div>

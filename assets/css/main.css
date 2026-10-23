@@ -437,7 +437,7 @@ main { min-height: calc(100vh - 64px - 90px); padding: 3rem 0; overflow-x: clip;
   margin-top: 5.5rem;
   margin-bottom: 1.25rem;
 }
-.about-content > .section-title { margin-top: 0; }
+.about-content .page-head .section-title { margin-top: 0; }
 .about-content .prose h2::before { content: "// "; color: var(--accent); }
 .about-content ul { padding-left: 1.2rem; }
 .about-content li { margin-bottom: 0.4rem; }
