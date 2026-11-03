@@ -59,6 +59,7 @@ photo: "/img/profile.svg"
       <li>🥉 <strong>HSPACE SpaceWar(WEB)</strong> — 3<sup>rd</sup> Place</li>
       <li>🥉 <strong>AI 과학수사 챌린지 2026</strong> — 3<sup>rd</sup> Place</li>
       <li>🥇 <strong>Hack.lu CTF 2026</strong> — 1<sup>st</sup> Place</li>
+      <li>🎖️ <strong>제 12회 디지털 범인을 찾아라</strong> — 장려상</li>
     </ul>
   </div>
 </div>

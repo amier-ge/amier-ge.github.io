@@ -59,6 +59,7 @@ photo: "/img/profile.svg"
       <li>🥉 <strong>HSPACE SpaceWar(WEB)</strong> — 3<sup>rd</sup> Place</li>
       <li>🥉 <strong>AI Forensic Investigation Challenge 2026</strong> — 3<sup>rd</sup> Place</li>
       <li>🥇 <strong>Hack.lu CTF 2026</strong> — 1<sup>st</sup> Place</li>
+      <li>🎖️ <strong>12th Find the Digital Criminals Competition</strong> — Honorable Mention</li>
     </ul>
   </div>
 </div>
