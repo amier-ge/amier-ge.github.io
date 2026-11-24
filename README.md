@@ -24,8 +24,9 @@ EC2 서비스의 로그인 설정은 `/etc/amier-blog/editor.env`, 초안·게�
 첨부 파일은 `/var/lib/amier-blog/private/`에 저장합니다.
 공개 사이트는 `/var/lib/amier-blog/public`에 연결된 빌드에서 제공됩니다.
 
-GitHub Pages 빌드는 저장소에 있는 Markdown을 게시합니다. EC2의 편집실에서
-저장한 내용은 Git 저장소에 자동으로 커밋되지 않습니다.
+GitHub Pages는 저장소의 Hugo 경로와 글 별칭으로 이동 페이지를 만들어
+`https://amier.ge`로 보냅니다. EC2의 편집실에서 저장한 내용은 Git 저장소에
+자동으로 커밋되지 않습니다.
 
 테스트는 저장소 루트에서 Python 의존성을 설치한 다음
 `python -m unittest discover -s src/server -p test_blog.py`로 실행합니다.
