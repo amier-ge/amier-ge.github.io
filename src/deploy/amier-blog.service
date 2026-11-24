@@ -1,0 +1,31 @@
+[Unit]
+Description=amier.ge blog editor and visitor counter
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=amier-blog
+Group=amier-blog
+WorkingDirectory=/opt/amier-blog/current/src/server
+EnvironmentFile=/etc/amier-blog/editor.env
+Environment=AMIER_HUGO_BIN=/opt/amier-blog/bin/hugo
+Environment=PYTHONDONTWRITEBYTECODE=1
+StateDirectory=amier-blog
+StateDirectoryMode=0755
+ExecStartPre=/opt/amier-blog/current/.venv/bin/python app.py build
+ExecStart=/opt/amier-blog/current/.venv/bin/gunicorn --bind 127.0.0.1:18742 --workers 1 --threads 6 --timeout 70 'app:create_app()'
+Restart=on-failure
+RestartSec=3
+ProtectSystem=strict
+ProtectHome=true
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+UMask=0022
+
+[Install]
+WantedBy=multi-user.target

@@ -13,6 +13,33 @@ defaultContentLanguageInSubdir = false
 # 날짜를 한국 시간 기준으로 해석 (미래글로 오인돼 글이 안 뜨는 문제 방지)
 timeZone = "Asia/Seoul"
 
+[module]
+  [[module.mounts]]
+    source = "src/site/archetypes"
+    target = "archetypes"
+  [[module.mounts]]
+    source = "src/site/layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "src/site/content"
+    target = "content"
+  [[module.mounts]]
+    source = "blog"
+    target = "content/blog"
+  [[module.mounts]]
+    source = "src/site/assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "assets/img"
+    target = "assets/img"
+  [[module.mounts]]
+    source = "assets/posts"
+    target = "static/img/posts"
+  [[module.mounts]]
+    source = "assets/uploads"
+    target = "static/img/uploads"
+    excludeFiles = ".gitkeep"
+
 # 요약 길이(블로그 카드/검색 인덱스용)
 summaryLength = 30
 
@@ -86,6 +113,7 @@ summaryLength = 30
 
 [params]
   brand = "amier_ge"
+  visitorAPI = "https://amier.ge"
   description = "amier_ge's blog"
   # 참고용 표기 — 실제 로직은 layouts/partials/head.html의 인라인 스크립트에 있음.
   # 첫 진입은 OS 설정과 무관하게 항상 dark, 방문자가 토글하면 그 선택을 localStorage에 기억.
@@ -113,7 +141,7 @@ summaryLength = 30
   repoId          = "R_kgDOSuApyw"
   category        = "Announcements"   # 방문자는 댓글만, 새 토론은 못 만들게(권장)
   categoryId      = "DIC_kwDOSuApy84C-WmS"
-  mapping         = "pathname"  # 글 1개 ↔ 토론 1개 매칭 기준
+  mapping         = "pathname"  # 신규 글의 기본 매핑. 기존 글의 토론 키는 front matter로 고정.
   reactions       = true        # 👍 같은 리액션 버튼
   inputPosition   = "top"       # 입력창 위치 (top | bottom)
   lang            = "ko"        # 댓글 UI 언어

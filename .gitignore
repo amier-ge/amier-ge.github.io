@@ -15,9 +15,16 @@ Thumbs.db
 # source images kept at repo root (already copied into assets/img/)
 /github_blog_png.png
 /github_blog_profile.jpg
+/assets/originals/
 
 # local-only working notes for Claude (do not publish)
 /CLAUDE.md
 
 # tmp Directory
 /tmp
+
+# Local development
+/.deps/
+/.venv/
+/.local/
+__pycache__/
