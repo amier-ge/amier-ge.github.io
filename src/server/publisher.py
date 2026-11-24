@@ -24,7 +24,7 @@ class Publisher:
         self.releases.mkdir(exist_ok=True)
         self.current = state / "public"
 
-    def build(self, content, overlays, required=None):
+    def build(self, content, overlays, required=None, *, hidden=()):
         destination = self.releases / uuid4().hex
         try:
             with TemporaryDirectory(prefix="hugo-", dir=self.state) as tmp:
@@ -32,8 +32,13 @@ class Publisher:
                 shutil.copy2(self.repo / "hugo.toml", source)
                 for subtree in ("blog", "assets", "src/site"):
                     shutil.copytree(self.repo / subtree, source / subtree)
+                for number in hidden:
+                    for lang in ("ko", "en"):
+                        (source / content.relative_path("post", number, lang)).unlink(missing_ok=True)
                 files = set()
                 for key, document in overlays.items():
+                    if key[0] == "post" and key[1] in hidden:
+                        continue
                     content.write_document(source, key, document)
                     files.update(MEDIA_REFERENCE.findall(document["body"]))
                 for name in files:
@@ -50,8 +55,9 @@ class Publisher:
                     kind, number, lang = required
                     folder = destination / "en" if lang == "en" else destination
                     folder = folder / "blog" / str(number) if kind == "post" else folder / "about"
-                    if not (folder / "index.html").is_file():
-                        raise BuildError("게시 주소가 생성되지 않았습니다.")
+                    should_exist = kind != "post" or number not in hidden
+                    if (folder / "index.html").is_file() != should_exist:
+                        raise BuildError("글의 공개 상태를 확인할 수 없습니다.")
         except (LookupError, OSError, subprocess.SubprocessError, BuildError) as error:
             shutil.rmtree(destination, ignore_errors=True)
             if isinstance(error, subprocess.CalledProcessError):

@@ -1,87 +1,121 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>편집실 · amier_ge</title>
+  <link rel="stylesheet" href="/editor/site.css">
   <link rel="stylesheet" href="/editor/editor.css">
   <script defer src="/editor/editor.js"></script>
+  <script defer src="/editor/theme.js"></script>
 </head>
-<body>
-  <header class="top">
-    <a class="brand" href="/">amier_ge</a>
-    <a class="site-link" href="/">공개 사이트</a>
-    <button id="logout" type="button" hidden>로그아웃</button>
+<body class="editor-page">
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/">amier_ge</a>
+      <nav class="nav-right" aria-label="사이트 메뉴">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="/">HOME</a></li>
+          <li><a href="/about/">ABOUT ME</a></li>
+          <li><a href="/blog/">BLOG</a></li>
+          <li><a href="/contact/">CONTACT</a></li>
+        </ul>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="테마 전환" title="테마 전환">
+          <span class="icon-moon" aria-hidden="true">☾</span>
+          <span class="icon-sun" aria-hidden="true">☀</span>
+        </button>
+        <button class="nav-burger" id="nav-burger" type="button" aria-label="메뉴" aria-controls="nav-links" aria-expanded="false">≡</button>
+      </nav>
+    </div>
   </header>
-  <main id="login" class="login" aria-labelledby="login-title">
-    <h1 id="login-title">블로그 편집실</h1>
-    <p id="login-message" role="status">로그인 상태 확인 중</p>
-    <div id="google-button"></div>
+  <main id="login" aria-label="편집실 로그인">
+    <div class="container">
+      <div class="contact-wrap editor-signin">
+        <div id="google-button"></div>
+        <p id="login-message" role="status"></p>
+      </div>
+    </div>
   </main>
-  <main id="workspace" class="workspace" hidden>
-    <aside class="library">
-      <h2>문서</h2>
-      <div class="library-actions">
-        <button id="new-post" type="button">새 글</button>
-        <button id="edit-about" type="button">About 편집</button>
+  <main id="workspace" hidden>
+    <div class="container workspace-container">
+      <div class="workspace-head">
+        <h1 class="section-title"><span class="slashes" aria-hidden="true">//</span>EDITOR</h1>
+        <button id="logout" class="editor-control" type="button" hidden>로그아웃</button>
       </div>
-      <ul id="posts" aria-label="블로그 글"></ul>
-    </aside>
-    <section class="editing" aria-labelledby="editor-heading">
-      <div class="section-heading">
-        <div>
-          <h1 id="editor-heading">새 글</h1>
-          <a id="published-link" target="_blank" rel="noopener" hidden>게시 페이지 열기</a>
-        </div>
-        <div id="languages" class="segmented" aria-label="편집 언어">
-          <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
-          <button type="button" data-lang="en" aria-pressed="false">English</button>
-        </div>
-      </div>
-      <form id="document-form" autocomplete="off">
-        <fieldset id="edit-fields">
-          <label>제목<input id="title" maxlength="300" spellcheck="true"></label>
-          <div id="post-fields" class="post-fields">
-            <label class="summary">요약<input id="summary" maxlength="4000"></label>
-            <label>게시일<input id="date" type="date"></label>
-            <label>태그<input id="tags" placeholder="쉼표로 구분"></label>
-            <fieldset id="categories" class="category-picker">
-              <legend>카테고리</legend>
-            </fieldset>
+      <div class="workspace-layout">
+        <aside class="library">
+          <h2>문서</h2>
+          <div class="library-actions">
+            <button id="new-post" type="button">새 글</button>
+            <button id="edit-about" type="button">About 편집</button>
           </div>
-          <div class="compose">
-            <section class="source" aria-labelledby="markdown-title">
-              <h2 id="markdown-title">Markdown</h2>
-              <div id="toolbar" class="toolbar" role="group" aria-label="Markdown 서식">
-                <button type="button" data-insert="heading" title="제목">H2</button>
-                <button type="button" data-insert="bold" title="굵게"><b>B</b></button>
-                <button type="button" data-insert="italic" title="기울임"><i>I</i></button>
-                <button type="button" data-insert="quote">인용</button>
-                <button type="button" data-insert="list">목록</button>
-                <button type="button" data-insert="code">코드</button>
-                <button type="button" data-insert="link">링크</button>
-                <button type="button" data-insert="table">표</button>
-                <button id="choose-media" type="button">사진·영상</button>
+          <ul id="posts" aria-label="블로그 글"></ul>
+        </aside>
+        <section class="editing" aria-labelledby="editor-heading">
+          <div class="section-heading">
+            <div>
+              <h2 id="editor-heading">새 글</h2>
+              <a id="published-link" target="_blank" rel="noopener" hidden>게시 페이지 열기</a>
+            </div>
+            <div id="languages" class="segmented" aria-label="편집 언어">
+              <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+              <button type="button" data-lang="en" aria-pressed="false">English</button>
+            </div>
+          </div>
+          <form id="document-form" autocomplete="off">
+            <fieldset id="edit-fields">
+              <label>제목<input id="title" maxlength="300" spellcheck="true"></label>
+              <div id="post-fields" class="post-fields">
+                <label class="summary">요약<input id="summary" maxlength="4000"></label>
+                <label>게시일<input id="date" type="date"></label>
+                <label>태그<input id="tags" placeholder="쉼표로 구분"></label>
+                <fieldset id="categories" class="category-picker">
+                  <legend>카테고리</legend>
+                </fieldset>
+                <label class="visibility-control">
+                  <input id="post-hidden" type="checkbox">
+                  <span>Hidden <span class="visibility-note">· 한·영 글 비공개</span></span>
+                </label>
               </div>
-              <input id="media" type="file" multiple hidden accept="image/png,image/jpeg,image/gif,image/webp,video/mp4,video/webm">
-              <textarea id="body" aria-labelledby="markdown-title" spellcheck="false"
-                        placeholder="Markdown을 쓰거나 이미지를 붙여넣으세요."></textarea>
-              <p class="hint">사진·영상은 본문에 끌어다 놓거나 파일로 올릴 수 있습니다. 파일당 최대 24 MB.</p>
-            </section>
-            <section class="preview-panel" aria-labelledby="preview-title">
-              <h2 id="preview-title">미리보기</h2>
-              <div id="preview" class="preview"></div>
-            </section>
-          </div>
-          <div class="actions">
-            <p id="status" role="status" aria-live="polite"></p>
-            <button id="save" type="button">초안 저장</button>
-            <button class="primary" id="publish" type="button">게시</button>
-          </div>
-        </fieldset>
-      </form>
-    </section>
+              <div class="compose">
+                <div class="compose-heading">
+                  <h2 id="markdown-title">Markdown</h2>
+                  <button id="toggle-preview" type="button" aria-controls="preview-panel" aria-expanded="false">미리보기 열기</button>
+                </div>
+                <div id="toolbar" class="toolbar" role="group" aria-label="Markdown 서식">
+                  <button type="button" data-insert="heading" title="제목">H2</button>
+                  <button type="button" data-insert="bold" title="굵게"><b>B</b></button>
+                  <button type="button" data-insert="italic" title="기울임"><i>I</i></button>
+                  <button type="button" data-insert="quote">인용</button>
+                  <button type="button" data-insert="list">목록</button>
+                  <button type="button" data-insert="code">코드</button>
+                  <button type="button" data-insert="link">링크</button>
+                  <button type="button" data-insert="table">표</button>
+                  <button id="choose-media" type="button">사진·영상</button>
+                </div>
+                <input id="media" type="file" multiple hidden accept="image/png,image/jpeg,image/gif,image/webp,video/mp4,video/webm">
+                <textarea id="body" aria-labelledby="markdown-title" spellcheck="false"
+                          placeholder="Markdown을 쓰거나 이미지를 붙여넣으세요."></textarea>
+                <p class="hint">사진·영상은 본문에 끌어다 놓거나 파일로 올릴 수 있습니다. 파일당 최대 24 MB.</p>
+                <h2 id="preview-title" hidden>미리보기</h2>
+                <div class="preview prose" id="preview-panel" role="region" aria-labelledby="preview-title" tabindex="0" hidden></div>
+              </div>
+              <div class="actions">
+                <p id="status" role="status" aria-live="polite"></p>
+                <button id="save" type="button">초안 저장</button>
+                <button class="primary" id="publish" type="button">게시</button>
+              </div>
+            </fieldset>
+          </form>
+        </section>
+      </div>
+    </div>
   </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span><span class="accent">$</span> echo "© <span id="copyright-year"></span> amier_ge — YoungJin Ban"</span>
+    </div>
+  </footer>
 </body>
 </html>

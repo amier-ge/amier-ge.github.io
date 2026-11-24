@@ -1,17 +1,16 @@
 from datetime import timedelta
 import os
 from pathlib import Path
-import re
 import sys
 
 from flask import Flask, abort, jsonify, request, send_file, send_from_directory
-from markdown_it import MarkdownIt
 from werkzeug.exceptions import HTTPException
 
 from auth import SESSION_SECONDS, attach_auth
 from content import Content, LANGUAGES
 from database import Database
-from media import MEDIA_REFERENCE, UPLOAD_NAME, Media
+from markdown_preview import MarkdownPreview, PreviewError
+from media import Media
 from publisher import BuildError, Publisher
 from visitors import counter
 
@@ -67,10 +66,7 @@ def create_app(settings=None):
     app.extensions["content"] = content
     app.register_blueprint(counter(db))
     require_login = attach_auth(app, db)
-    markdown = MarkdownIt("commonmark", {"html": False}).enable(["table", "strikethrough"])
-    video_markup = re.compile(
-        r'<video controls preload="metadata" src="/img/uploads/(' + UPLOAD_NAME + r')"></video>'
-    )
+    markdown = MarkdownPreview(REPO / "hugo.toml", private, app.config["HUGO_BIN"])
 
     @app.errorhandler(HTTPException)
     def http_error(error):
@@ -86,13 +82,16 @@ def create_app(settings=None):
         if request.path.startswith(("/api/editor/", "/editor/")):
             response.headers["X-Content-Type-Options"] = "nosniff"
             response.headers["Cache-Control"] = "no-store"
-            response.headers["Referrer-Policy"] = "same-origin"
+            response.headers["Referrer-Policy"] = (
+                "strict-origin-when-cross-origin" if request.path == "/editor/" else "same-origin"
+            )
             response.headers["Cross-Origin-Opener-Policy"] = "same-origin-allow-popups"
             response.headers["Content-Security-Policy"] = (
                 "default-src 'self'; base-uri 'none'; frame-ancestors 'none'; "
                 "object-src 'none'; form-action 'self'; "
                 "script-src 'self' https://accounts.google.com; "
-                "style-src 'self' https://accounts.google.com; "
+                "style-src 'self' https://accounts.google.com https://fonts.googleapis.com https://cdn.jsdelivr.net; "
+                "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; "
                 "connect-src 'self' https://accounts.google.com; "
                 "frame-src https://accounts.google.com; img-src 'self' https: data:; "
                 "media-src 'self';"
@@ -105,6 +104,10 @@ def create_app(settings=None):
 
     @app.get("/editor/<asset>")
     def editor_asset(asset):
+        if asset == "site.css":
+            return send_from_directory(REPO / "src/site/assets/css", "main.css")
+        if asset == "theme.js":
+            return send_from_directory(REPO / "src/site/assets/js", "theme-toggle.js")
         if asset not in ("editor.css", "editor.js"):
             abort(404)
         return send_from_directory(REPO / "src/editor", asset)
@@ -168,14 +171,11 @@ def create_app(settings=None):
         body = fields.get("body") if isinstance(fields, dict) else None
         if not isinstance(body, str) or len(body) > 1_000_000:
             abort(400)
-        body = video_markup.sub(lambda m: "\n[업로드 영상](/img/uploads/" + m.group(1) + ")\n", body)
-        rendered = markdown.render(body)
-        rendered = MEDIA_REFERENCE.sub(lambda m: "/api/editor/media/" + m.group(1), rendered)
-        rendered = re.sub(
-            r'<a href="(/api/editor/media/[a-f0-9]{32}\.(?:mp4|webm))">업로드 영상</a>',
-            r'<video controls preload="metadata" src="\1"></video>', rendered,
-        )
-        return jsonify(html=rendered)
+        try:
+            return jsonify(html=markdown.render(body))
+        except PreviewError:
+            app.logger.exception("Markdown preview failed")
+            return jsonify(error="미리보기를 생성하지 못했습니다."), 422
 
     return app
 

@@ -87,6 +87,7 @@ class Content:
         articles = {}
         with closing(self.db.connect()) as conn:
             rows = conn.execute("SELECT * FROM documents WHERE kind = 'post'").fetchall()
+            hidden = self.hidden_numbers(conn)
         revisions = {(row["kind"], row["number"], row["lang"]): row for row in rows}
         for key in self.seeds.keys() | revisions.keys():
             kind, number, lang = key
@@ -95,7 +96,9 @@ class Content:
             row = revisions.get(key)
             stored = (row["draft"] or row["published"]) if row else None
             document = json.loads(stored) if stored else self.seed_document(key)
-            post = articles.setdefault(number, {"number": number, "languages": {}})
+            post = articles.setdefault(number, {
+                "number": number, "languages": {}, "hidden": number in hidden,
+            })
             post["languages"][lang] = {
                 "title": document["title"],
                 "draft": bool(row and row["draft"]),
@@ -121,10 +124,23 @@ class Content:
                     document["date"] = json.loads(korean["published"] or korean["draft"])["date"]
             if row and (row["draft"] or row["published"]):
                 document = json.loads(row["draft"] or row["published"])
+            published = bool(key in self.seeds or (row and row["published"]))
+            if kind == "post":
+                current_hidden, visibility_revision = self.visibility(conn, number)
+                pending_hidden = (
+                    document.get("hidden", current_hidden) if document.get("visibilityRevision") == visibility_revision
+                    else current_hidden
+                )
+                document.update(
+                    hidden=pending_hidden, currentlyHidden=current_hidden,
+                    visibilityRevision=visibility_revision, public=published and not current_hidden,
+                )
+            else:
+                document["public"] = published
             return {
                 **document, "kind": kind, "number": number, "lang": lang,
                 "revision": row["revision"] if row else 0,
-                "published": bool(key in self.seeds or (row and row["published"])),
+                "published": published,
                 "hasDraft": bool(row and row["draft"]),
             }
 
@@ -160,7 +176,6 @@ class Content:
 
     def update(self, kind, number, lang, fields, publish):
         document = self.validate(kind, fields, publish)
-        encoded = json.dumps(document, ensure_ascii=False)
         desired_revision = fields.get("revision")
         if type(desired_revision) is not int or desired_revision < 0:
             raise ValueError("편집 버전을 확인하세요.")
@@ -177,12 +192,35 @@ class Content:
             if desired_revision != (previous["revision"] if previous else 0):
                 raise RuntimeError("다른 탭에서 수정했습니다. 새로 불러온 뒤 다시 저장하세요.")
             revision = desired_revision + 1
+            new_hidden = current_hidden = False
+            if kind == "post":
+                current_hidden, visibility_revision = self.visibility(conn, number)
+                new_hidden = fields.get("hidden", current_hidden)
+                expected = fields.get("visibilityRevision", visibility_revision)
+                if type(new_hidden) is not bool or type(expected) is not int or expected < 0:
+                    raise ValueError("공개 설정을 확인하세요.")
+                if expected != visibility_revision:
+                    raise RuntimeError("다른 탭에서 공개 설정을 변경했습니다. 글을 다시 불러오세요.")
+                if not publish:
+                    document.update(hidden=new_hidden, visibilityRevision=visibility_revision)
+            encoded = json.dumps(document, ensure_ascii=False)
             if publish:
                 overlays = self.published(conn)
                 overlays[key] = document
-                build = self.publisher.build(self, overlays, required=key)
+                hidden = self.hidden_numbers(conn)
+                if new_hidden:
+                    hidden.add(number)
+                elif kind == "post":
+                    hidden.discard(number)
+                build = self.publisher.build(self, overlays, hidden=hidden, required=key)
                 with self.publisher.activate(build), conn:
                     self.persist(conn, key, None, encoded, revision)
+                    if kind == "post" and new_hidden != current_hidden:
+                        conn.execute("""
+                            INSERT INTO post_visibility VALUES (?, ?, 1)
+                            ON CONFLICT(number) DO UPDATE SET
+                                hidden=excluded.hidden, revision=post_visibility.revision + 1
+                        """, (number, int(new_hidden)))
             else:
                 with conn:
                     self.persist(conn, key, encoded, previous["published"] if previous else None, revision)
@@ -190,9 +228,18 @@ class Content:
 
     def publish_initial(self):
         with closing(self.db.connect()) as conn:
-            build = self.publisher.build(self, self.published(conn))
+            build = self.publisher.build(self, self.published(conn), hidden=self.hidden_numbers(conn))
         with self.publisher.activate(build):
             pass
+
+    @staticmethod
+    def visibility(conn, number):
+        row = conn.execute("SELECT hidden, revision FROM post_visibility WHERE number = ?", (number,)).fetchone()
+        return (bool(row["hidden"]), row["revision"]) if row else (False, 0)
+
+    @staticmethod
+    def hidden_numbers(conn):
+        return {row[0] for row in conn.execute("SELECT number FROM post_visibility WHERE hidden = 1")}
 
     @staticmethod
     def persist(conn, key, draft, published, revision):

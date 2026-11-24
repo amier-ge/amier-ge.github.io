@@ -19,6 +19,11 @@ class Database:
                     draft TEXT, published TEXT, revision INTEGER NOT NULL DEFAULT 0,
                     PRIMARY KEY (kind, number, lang)
                 );
+                CREATE TABLE IF NOT EXISTS post_visibility (
+                    number INTEGER PRIMARY KEY,
+                    hidden INTEGER NOT NULL CHECK (hidden IN (0, 1)),
+                    revision INTEGER NOT NULL
+                );
                 CREATE TABLE IF NOT EXISTS sessions (id TEXT PRIMARY KEY, expires INTEGER NOT NULL);
             """)
 
